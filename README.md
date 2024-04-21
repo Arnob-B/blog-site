@@ -1,7 +1,9 @@
-blog properties
+# blog properties
 
 
 {
   "title":String,
   "desc":String,
 }
+
+

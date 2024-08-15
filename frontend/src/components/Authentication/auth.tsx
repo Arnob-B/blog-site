@@ -21,6 +21,7 @@ function StatusRenderer({st}){
         <div>
           <Alert status='error'>
             <AlertTitle>MailExist</AlertTitle>
+            <AlertDescription>The Email Id is already present</AlertDescription>
           </Alert>
         </div>
       )
@@ -30,6 +31,7 @@ function StatusRenderer({st}){
         <div>
           <Alert status='error'>
             <AlertTitle>UserExit</AlertTitle>
+            <AlertDescription>The Username is already present</AlertDescription>
           </Alert>
         </div>
       )
@@ -54,7 +56,6 @@ function SignUp(){
     const toSend:Object = {
       email:email,
       uname:uname,
-      password:password,
     }
     setStatus(3);
     console.log(toSend);
@@ -87,7 +88,7 @@ function SignUp(){
             {show ? "hide" : "show"}
           </InputRightAddon>
         </InputGroup>
-        <Button colorScheme="green" onClick={submit}>
+        <Button  colorScheme="green" onClick={submit}>
           sumbit
         </Button>
         <StatusRenderer
@@ -98,9 +99,35 @@ function SignUp(){
   )
 }
 function LogIn(){
+  const [email,setEmail] = useContext(authcontext);
+  const [show,setShow] = useState<boolean>(false);
+  const submit = ()=>{
+  }
   return(
     <div>
-      LogIn
+      <Container>
+        <InputGroup m="2">
+          <InputLeftAddon>Mail</InputLeftAddon>
+          <Input placeholder="" size='md'
+          value={email}
+          onChange={e=>setEmail(e.target.value)}
+         ></Input>
+        </InputGroup>
+        <InputGroup m="2">
+          <InputLeftAddon> Password </InputLeftAddon>
+          <Input placeholder="" size='md'
+            type={show ? 'text' : 'password'}
+          ></Input>
+          <InputRightAddon onClick={() => {
+            setShow(!show);
+          }}>
+            {show ? "hide" : "show"}
+          </InputRightAddon>
+        </InputGroup>
+        <Button colorScheme="green" onClick={submit}>
+          sumbit
+        </Button>
+      </Container>
     </div>
   )
 }

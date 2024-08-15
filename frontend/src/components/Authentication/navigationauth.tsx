@@ -1,28 +1,29 @@
-import { Breadcrumb,BreadcrumbItem ,BreadcrumbLink} from "@chakra-ui/react";
+import {Tabs,TabList,Tab, Breadcrumb,BreadcrumbItem ,BreadcrumbLink} from "@chakra-ui/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import authcontext from "../contexts/authcontext";
 function NavigationPane(){
   const [email,setEmail] = useState<string>("");
   const [uname,setUname] = useState<string>("");
+  const navigate = useNavigate();
   return(
     <authcontext.Provider value={[email,uname,setEmail,setUname]}>
-      <div>
-        <Breadcrumb separator='-'>
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/auth/signup">
-              Sign up
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/auth/login">
-              Log In
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <Tabs  isFitted variant='enclosed' align="center">
+          <TabList>
+            <Tab onClick={()=>{
+              navigate("/auth/signup");
+            }}>
+              Sign-Up
+            </Tab>
+            <Tab onClick={()=>{
+              navigate("/auth/login");
+            }}>
+              Log-In
+            </Tab>
+          </TabList>
+        </Tabs>
         <Outlet></Outlet>
-      </div>
     </authcontext.Provider>
   )
 }

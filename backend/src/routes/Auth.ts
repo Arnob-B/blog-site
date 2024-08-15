@@ -8,26 +8,51 @@ enum scode {
   Cbad = 400
 }
 
-route.post("/signin", (req: Request, res: Response) => {
+route.post("/signin",(req: Request, res: Response) => {
   const userdata = req.body;
-  pclient.user.create({
-    data: {
-      email: userdata.email,
-      uname: userdata.uname,
-      password: userdata.password
+  pclient.user.findFirst({
+    where: {
+      OR: [
+        {
+          email: userdata.email
+        },
+        {
+          uname: userdata.uname
+        }
+      ]
     }
-  }
-  ).then((data:any)=>{
-    console.log(data);
-    res.status(scode.Ok);
+  }).then((data) => {
+    if (data != null) {
+      res.status(400);
+      res.send({
+        msg: "user already present"
+      });
+    }
+    else {
+      pclient.user.create(
+        {
+          data: {
+            email: userdata.email,
+            uname: userdata.uname,
+            password: userdata.password,
+          }
+        }
+      ).then(data => {
+        res.status(200);
+        res.send({
+          msg: "user created"
+        });
+      }).catch(e => {
+        console.log("error : \n", e);
+        res.status(500);
+        res.send();
+      })
+    }
+  }).catch(e => {
+    console.log("error : \n", e);
+    res.status(500);
     res.send();
-  }).catch((e:any)=>{
-    res.status(scode.Cbad)
-    console.log(e);
-    res.send({
-      error:e
-    })
-  });
+  })
 });
 
 

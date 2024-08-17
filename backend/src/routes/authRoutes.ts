@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import pclient from "../client";
+import checkToken from "../middlewares/checkToken";
 
 const jwt = require("jsonwebtoken");
 
@@ -116,5 +117,12 @@ route.post("/login", (req, res) => {
     res.send();
   })
 })
+
+route.get("/checking",checkToken,(req,res)=>{
+  res.send({
+    msg:"you have passwed the checking"
+  });
+})
+
 
 export default route;

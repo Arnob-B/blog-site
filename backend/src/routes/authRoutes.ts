@@ -79,11 +79,10 @@ route.post("/login", (req, res) => {
   }).then(data => {
     if (data == null) {
       res.status(400);
-      res.send({ msg: "wrong credentialss" })
+      res.send({ msg: "wrongCredentials" })
     }
     else {
       try{
-        console.log(jwt)
         jwt.sign({
           email : req.body.email,
           rand : Math.random()
@@ -98,7 +97,7 @@ route.post("/login", (req, res) => {
             res.status(200);
             res.send({
               msg: "loginSuccesfull",
-              jwt: token
+              jwtToken: token
             });
           }
         })

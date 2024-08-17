@@ -1,11 +1,11 @@
 import express from "express"
-import authroute from "./routes/Auth";
+import authRoute from "./routes/authRoutes";
 const dotenv = require("dotenv");
 dotenv.config();
 const app =  express();
 app.use(express.json());
 
-app.use("/auth/",authroute);
+app.use("/auth/",authRoute);
 app.get("/test",(req,res)=>{
   res.status(200);
   res.send({

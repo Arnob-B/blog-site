@@ -1,4 +1,5 @@
-|methods|path|
-|---|---|
-|POST | /auth/signin|
-|POST | /auth/login|
+# Authentication
+|methods|path|header|body
+|---|---|---|---|
+|POST | /auth/signup||email,uname,password|
+|POST | /auth/login||email,password|

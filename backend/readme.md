@@ -11,7 +11,7 @@ npm i
 
 > optinal step if you are making the db from scratch
 ```bash
-npx prisma migreate dev --init
+npx prisma migreate dev 
 ```
 
 > generate the prisma client

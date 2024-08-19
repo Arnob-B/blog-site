@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import pclient from "../client";
 import checkToken from "../middlewares/checkToken";
+import crytpo from "crypto"
 
 const jwt = require("jsonwebtoken");
 
@@ -10,18 +11,17 @@ const route = Router();
 enum scode {
   Ok=200,
   Cbad = 400
-}
+} 
 
 route.post("/signup", (req: Request, res: Response) => {
-  const userdata = req.body;
   pclient.user.findMany({
     where: {
       OR: [
         {
-          email: userdata.email
+          email: req.body.email
         },
         {
-          uname: userdata.uname
+          uname: req.body.uname
         }
       ]
     }
@@ -29,12 +29,12 @@ route.post("/signup", (req: Request, res: Response) => {
     if (data.length != 0) {
       data.forEach(e => {
         res.status(400);
-        if (e.email === userdata.email) {
+        if (e.email === req.body.email) {
           res.send({
             msg: "emailExist"
           });
         }
-        if (e.uname === userdata.uname) {
+        if (e.uname === req.body.uname) {
           res.send({
             msg: "userExist"
           });
@@ -43,12 +43,13 @@ route.post("/signup", (req: Request, res: Response) => {
     }
     else {
       //no user present like that
+      const hashed = crytpo.createHash('sha-256').update(req.body.password).digest('hex');
       pclient.user.create(
         {
           data: {
-            email: userdata.email,
-            uname: userdata.uname,
-            password: userdata.password,
+            email: req.body.email,
+            uname: req.body.uname,
+            password: hashed,
           }
         }
       ).then(data => {
@@ -71,10 +72,11 @@ route.post("/signup", (req: Request, res: Response) => {
 
 
 route.post("/login", (req, res) => {
+  const hashed = crytpo.createHash('sha-256').update(req.body.password).digest('hex');
   pclient.user.findUnique({
     where: {
       email:req.body.email,
-      password:req.body.password,
+      password:hashed,
     }
   }).then(data => {
     if (data == null) {

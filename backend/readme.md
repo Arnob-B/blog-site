@@ -23,3 +23,9 @@ npx prisma generate
 ```bash
 npm run dev
 ```
+# Checklist
+- [ ] Authentication
+  - [ ] signup
+  - [ ] email verification
+  - [ ] login
+

@@ -34,7 +34,7 @@ route.post("/signup", (req: Request, res: Response) => {
             msg: "emailExist"
           });
         }
-        if (e.uname === req.body.uname) {
+        else if (e.uname === req.body.uname) {
           res.send({
             msg: "userExist"
           });

@@ -9,7 +9,11 @@ function NavigationPane(){
   const [password,setPassword] = useState<string>("");
   const navigate = useNavigate();
   useEffect(()=>{
+    if(localStorage.getItem("jwtToken") == null)
     navigate("/auth/signup");
+    else {
+      navigate('/');
+    }
   },[]);
   return(
     <userDetail.Provider value={{

@@ -60,8 +60,8 @@ function LogIn(){
     }).then(d =>{
       if(d.status ===200){
         alert("you are logged in ");
+        localStorage.setItem("jwtToken",d.data.jwtToken);
       }
-      console.log(d.data.jwtToken)
     }
     ).catch(e=>{
       console.log("error :-> ",e)

@@ -25,7 +25,7 @@ npm run dev
 ```
 # Checklist
 - [ ] Authentication
-  - [ ] signup
+  - [x] signup
   - [ ] email verification
-  - [ ] login
+  - [x] login
 

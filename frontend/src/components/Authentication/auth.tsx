@@ -10,6 +10,7 @@ function SignUp(){
   const {mail,uname, password,setUname,setMail,setPassword} = useContext(userDetail);
   const [status, setStatus] = useState<number>(0);
   const submit =()=>{
+    if( mail=="" || password == "" ||uname == "") return;
     const toSend:Object = {
       email:mail,
       uname:uname,
@@ -54,6 +55,7 @@ function SignUp(){
 function LogIn(){
   const {mail,setMail,password,setPassword} = useContext(userDetail);
   const submit = ()=>{
+    if( mail=="" || password == "") return;
     axios.post("http://localhost:3000"+"/auth/login",{
       email:mail,
       password:password

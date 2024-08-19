@@ -119,11 +119,7 @@ route.post("/login", (req, res) => {
   })
 })
 
-route.get("/checking",checkToken,(req,res)=>{
-  res.send({
-    msg:"you have passwed the checking"
-  });
-})
+
 
 
 export default route;

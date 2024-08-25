@@ -1,5 +1,6 @@
 import express from "express"
 import authRoute from "./routes/authRoutes";
+import articleRoute from "./routes/aritcleRoutes"
 const cors = require('cors')
 const dotenv = require("dotenv");
 dotenv.config();
@@ -10,7 +11,8 @@ app.use(cors({
 }))
 
 app.use("/auth/",authRoute);
-app.get("/test",(req,res)=>{
+app.use("/article/",articleRoute);
+app.get("/test/",(req,res)=>{
   res.status(200);
   res.send({
     msg: " hello from server"

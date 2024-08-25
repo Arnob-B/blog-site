@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  //output = "../src/generated/clients"
 }
 datasource db {
   provider = "postgresql"
@@ -20,4 +19,15 @@ model User{
   uname String @unique 
   password String
   isVerified Boolean @default(false)
+  articles Article[]
+}
+
+
+// 1-n relationship model described
+model Article{
+  id String @id @default(uuid())
+  title String @unique
+  content String
+  author User @relation(fields: [authorId],references: [id])
+  authorId String
 }

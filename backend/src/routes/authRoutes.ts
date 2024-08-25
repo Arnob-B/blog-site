@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import pclient from "../client";
-import checkToken from "../middlewares/checkToken";
+import {checkToken} from "../middlewares/checkToken";
 import crytpo from "crypto"
 
 const jwt = require("jsonwebtoken");
@@ -86,7 +86,7 @@ route.post("/login", (req, res) => {
     else {
       try{
         jwt.sign({
-          email : req.body.email,
+          userName : data.uname,
           rand : Math.random()
         }, process.env.JWTSECRET, (err: any, token: any) => {
           if (err) {

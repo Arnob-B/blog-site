@@ -8,3 +8,5 @@
 
 |methods|path|header|body| return |
 |---|---|---|---|---|
+|GET | /article/:username/:title | ||title, content|
+|POST |/article/post | jwttoken|title,content||
